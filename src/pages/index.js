@@ -48,7 +48,7 @@ export default function Home() {
     setFormData(prevs => { return { ...prevs, endTime: e.toString() } })
   }
   const handleFormSubmit = () => {
-    GetPurchaseOrderDetails(rawData, formData.purchaseOrder, (data) => {
+    GetPurchaseOrderDetails(rawData, formData.purchaseOrder,formData.supplier, (data) => {
       setTableData(data)
     })
   }
@@ -194,7 +194,7 @@ export default function Home() {
                         {formData.rate}
                       </Table.Cell>
                       <Table.Cell key={uuidv4()}>
-                        {formData.supplier}
+                        {value.Supplier}
                       </Table.Cell>
                       <Table.Cell key={uuidv4()}>
                         {value["PO Number"]}

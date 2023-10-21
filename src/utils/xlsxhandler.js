@@ -31,10 +31,10 @@ const GetPurchaseOrder = (rawData,supplier,callback)=>{
     callback(purchaseOrder)
 }
 
-const GetPurchaseOrderDetails = (rawData,orderID,callback) =>{
+const GetPurchaseOrderDetails = (rawData,orderID,supplier,callback) =>{
     const purchaseOrderDetails = rawData.map(row=>{
         if(row["PO Number"] === orderID){
-            console.log()
+            row["Supplier"] = supplier
             return row
         }
     }).filter(notUndefined => notUndefined !== undefined);
