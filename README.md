@@ -2,8 +2,9 @@
 
 You can see the Demo using the below link
 
-open [https://sarthak001.github.io/Async-Task/](https://sarthak001.github.io/Async-Task/) with your browser to see the result.
+Note : Due to security issues, browser cannot directly access the filesystem, thats why you need to upload the respective xlsx file first.
 
+open [https://sarthak001.github.io/Async-Task/](https://sarthak001.github.io/Async-Task/) with your browser to see the result.
 
 ## Prerequisite
 

@@ -80,7 +80,7 @@ export default function Home() {
       <div id="fileInput" className="flex items-center gap-3 px-5">
         <div className="max-w-md" id="fileUpload">
           <div className="mb-2 block">
-            <Label htmlFor="file" value="Upload file" />
+            <Label htmlFor="file" value="Upload xlsx file" />
           </div>
           <FileInput onChange={handleFileInput} helperText="Open xlsx file." id="file" accept=".xls,.xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" />
         </div>
