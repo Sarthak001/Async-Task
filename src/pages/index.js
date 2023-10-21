@@ -28,7 +28,6 @@ export default function Home() {
   })
   const [tableData, setTableData] = useState([])
   const [tableHeaders, setTableHeaders] = useState(["Name", "Start Time", "End Time", "Hours", "Rate", "Supplier", "Purchase Order", "Description"])
-  const [isTableDataProcessing, setIsTableDataProcessing] = useState(false)
   const handleFileInput = (e) => {
     if (e.target.files.length > 0) {
       if (e.target.files[0]["name"].split(".")[1] === "xlsx" || e.target.files[0]["name"].split(".")[1] === "xls") {
@@ -48,9 +47,13 @@ export default function Home() {
     setFormData(prevs => { return { ...prevs, endTime: e.toString() } })
   }
   const handleFormSubmit = () => {
-    GetPurchaseOrderDetails(rawData, formData.purchaseOrder,formData.supplier, (data) => {
-      setTableData(data)
-    })
+    if(formData.purchaseOrder !== ""){
+      GetPurchaseOrderDetails(rawData, formData.purchaseOrder,formData.supplier, (data) => {
+        setTableData(data)
+      })
+    }else{
+      alert("select purchase order!!")
+    }
   }
   useEffect(() => {
     if (file !== null) {
@@ -62,16 +65,20 @@ export default function Home() {
     }
   }, [file])
   useEffect(() => {
-    GetSuppliers(rawData, (data) => {
-      setSuppliers(data)
-    })
+    if(file !== null){
+      GetSuppliers(rawData, (data) => {
+        setSuppliers(data)
+      })
+    }
   }, [rawData])
   useEffect(() => {
-    GetPurchaseOrder(rawData, formData.supplier, (data) => {
-      setPurchaseOrder(data)
-    })
+    if(file !== null && formData.supplier !== ""){
+      setFormData(prev => {return{...prev,purchaseOrder:""}})
+      GetPurchaseOrder(rawData, formData.supplier, (data) => {
+        setPurchaseOrder(data)
+      })
+    }
   }, [formData.supplier])
-
   return (
     <div className="flex flex-col justify-center justify-items-center">
       <div id="heading" className="px-5 mb-2">
@@ -124,7 +131,7 @@ export default function Home() {
             <Label htmlFor="supplier" value="Select your Supplier" />
           </div>
           <Select value={formData.supplier} onChange={handleFormInput} id="supplier" required>
-            <option value={-1} defaultValue={true}>select supplier</option>
+            <option value={""} defaultValue={true}>select supplier</option>
             {
               suppliers.length > 0 && suppliers.map(value => {
                 return (
@@ -142,7 +149,7 @@ export default function Home() {
             />
           </div>
           <Select value={formData.purchaseOrder} onChange={handleFormInput} id="purchaseOrder" required>
-            <option value={-1} defaultValue={true}>select Purchase Order</option>
+            <option value={""} defaultValue={true}>select Purchase Order</option>
             {
               purchaseOrder.length > 0 && purchaseOrder.map(value => {
                 return (
